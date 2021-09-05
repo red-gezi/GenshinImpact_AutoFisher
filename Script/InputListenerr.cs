@@ -7,48 +7,6 @@ class InputListenerr
 {
    static bool isCtrlDown = false;
     ///////////////////////////////////////////下面是看不懂的win API区域///////////////////////////////////////////////////
-    ///该类作用在于放在后台也能检测到键盘输入
-    static WindowsHookCallBack k_callback;
-    ///该类作用在于放在后台也能检测到鼠标输入
-    static WindowsHookCallBack m_callback;
-    public static void GetKeyDownEvent(Action<string> response)
-    {
-        k_callback = CreateCallBack((status, data) =>
-        {
-            if (data.vkCode == 162)//判断按下的是否是ctrl
-            {
-                isCtrlDown = status== KeyBoredHookStatus.WM_KEYDOWN; 
-            }
-            else if (status == KeyBoredHookStatus.WM_KEYDOWN)
-            {
-                //代码
-                if (data.vkCode==27)
-                {
-                    response("esc");
-
-                }
-                else
-                {
-                    string key = (isCtrlDown ? "Ctrl" : "") + (((char)data.vkCode).ToString().ToUpper());
-                    response(key);
-                }
-                
-            }
-        });
-        IntPtr intPtr = SetWindowsHookEx(WindowsHookType.WH_KEYBOARD_LL, k_callback, IntPtr.Zero, 0);
-    }
-    public static void GetMouseEvent(Action<string> response)
-    {
-        m_callback = CreateCallBack((status, data) =>
-        {
-            if ((int)status!=512)
-            {
-                response(status.ToString());
-            }
-
-        });
-        IntPtr intPtr = SetWindowsHookEx(WindowsHookType.WH_MOUSE_LL, m_callback, IntPtr.Zero, 0);
-    }
 
     public enum KeyBoredHookStatus
     {

@@ -1,4 +1,4 @@
-﻿namespace 坎坎瑞亚钓鱼机
+﻿namespace 坎瑞亚钓鱼机
 {
     partial class Form1
     {
@@ -30,12 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_Pause = new System.Windows.Forms.Button();
+            this.pict_step = new System.Windows.Forms.PictureBox();
+            this.pict_current = new System.Windows.Forms.PictureBox();
+            this.pict_range = new System.Windows.Forms.PictureBox();
+            this.pict_sign = new System.Windows.Forms.PictureBox();
+            this.pict_game = new System.Windows.Forms.PictureBox();
+            this.pict_bar = new System.Windows.Forms.PictureBox();
+            this.btn_open = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.cb_ShowLine = new System.Windows.Forms.CheckBox();
             this.cb_AutoLoadScreen = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,17 +56,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_github = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_step)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_current)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_range)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_sign)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_game)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.V1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.U1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.V0)).BeginInit();
@@ -70,46 +73,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.label5);
-            this.splitContainer1.Panel2.Controls.Add(this.label4);
-            this.splitContainer1.Panel2.Controls.Add(this.progressBar2);
-            this.splitContainer1.Panel2.Controls.Add(this.progressBar1);
-            this.splitContainer1.Size = new System.Drawing.Size(298, 346);
-            this.splitContainer1.SplitterDistance = 212;
-            this.splitContainer1.SplitterWidth = 3;
-            this.splitContainer1.TabIndex = 5;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(298, 212);
+            this.tabControl1.Size = new System.Drawing.Size(427, 701);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.btn_Pause);
+            this.tabPage2.Controls.Add(this.pict_step);
+            this.tabPage2.Controls.Add(this.pict_current);
+            this.tabPage2.Controls.Add(this.pict_range);
+            this.tabPage2.Controls.Add(this.pict_sign);
+            this.tabPage2.Controls.Add(this.pict_game);
+            this.tabPage2.Controls.Add(this.pict_bar);
+            this.tabPage2.Controls.Add(this.btn_open);
             this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.cb_ShowLine);
             this.tabPage2.Controls.Add(this.cb_AutoLoadScreen);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.label2);
@@ -120,56 +106,109 @@
             this.tabPage2.Controls.Add(this.btn_SetRect);
             this.tabPage2.Controls.Add(this.game_height);
             this.tabPage2.Controls.Add(this.game_width);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(290, 186);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage2.Size = new System.Drawing.Size(419, 672);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "校准";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btn_Pause
             // 
-            this.button2.Location = new System.Drawing.Point(145, 135);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(68, 24);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Open";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btn_Pause.Location = new System.Drawing.Point(233, 169);
+            this.btn_Pause.Name = "btn_Pause";
+            this.btn_Pause.Size = new System.Drawing.Size(115, 32);
+            this.btn_Pause.TabIndex = 22;
+            this.btn_Pause.Text = "暂停（P）";
+            this.btn_Pause.UseVisualStyleBackColor = true;
+            this.btn_Pause.Click += new System.EventHandler(this.btn_Pause_Click);
+            // 
+            // pict_step
+            // 
+            this.pict_step.Location = new System.Drawing.Point(15, 407);
+            this.pict_step.Name = "pict_step";
+            this.pict_step.Size = new System.Drawing.Size(352, 45);
+            this.pict_step.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pict_step.TabIndex = 21;
+            this.pict_step.TabStop = false;
+            // 
+            // pict_current
+            // 
+            this.pict_current.Location = new System.Drawing.Point(15, 508);
+            this.pict_current.Name = "pict_current";
+            this.pict_current.Size = new System.Drawing.Size(352, 41);
+            this.pict_current.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pict_current.TabIndex = 20;
+            this.pict_current.TabStop = false;
+            // 
+            // pict_range
+            // 
+            this.pict_range.Location = new System.Drawing.Point(15, 458);
+            this.pict_range.Name = "pict_range";
+            this.pict_range.Size = new System.Drawing.Size(352, 44);
+            this.pict_range.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pict_range.TabIndex = 19;
+            this.pict_range.TabStop = false;
+            // 
+            // pict_sign
+            // 
+            this.pict_sign.Location = new System.Drawing.Point(15, 356);
+            this.pict_sign.Name = "pict_sign";
+            this.pict_sign.Size = new System.Drawing.Size(352, 45);
+            this.pict_sign.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pict_sign.TabIndex = 18;
+            this.pict_sign.TabStop = false;
+            // 
+            // pict_game
+            // 
+            this.pict_game.Location = new System.Drawing.Point(15, 169);
+            this.pict_game.Name = "pict_game";
+            this.pict_game.Size = new System.Drawing.Size(165, 93);
+            this.pict_game.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pict_game.TabIndex = 17;
+            this.pict_game.TabStop = false;
+            // 
+            // pict_bar
+            // 
+            this.pict_bar.Location = new System.Drawing.Point(15, 305);
+            this.pict_bar.Name = "pict_bar";
+            this.pict_bar.Size = new System.Drawing.Size(352, 45);
+            this.pict_bar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pict_bar.TabIndex = 7;
+            this.pict_bar.TabStop = false;
+            // 
+            // btn_open
+            // 
+            this.btn_open.Location = new System.Drawing.Point(199, 218);
+            this.btn_open.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_open.Name = "btn_open";
+            this.btn_open.Size = new System.Drawing.Size(91, 30);
+            this.btn_open.TabIndex = 15;
+            this.btn_open.Text = "Open";
+            this.btn_open.UseVisualStyleBackColor = true;
+            this.btn_open.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(215, 135);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Location = new System.Drawing.Point(293, 218);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(68, 24);
+            this.button3.Size = new System.Drawing.Size(91, 30);
             this.button3.TabIndex = 16;
             this.button3.Text = "Close";
             this.button3.UseVisualStyleBackColor = true;
-            // 
-            // cb_ShowLine
-            // 
-            this.cb_ShowLine.AutoSize = true;
-            this.cb_ShowLine.Location = new System.Drawing.Point(20, 135);
-            this.cb_ShowLine.Margin = new System.Windows.Forms.Padding(2);
-            this.cb_ShowLine.Name = "cb_ShowLine";
-            this.cb_ShowLine.Size = new System.Drawing.Size(94, 17);
-            this.cb_ShowLine.TabIndex = 14;
-            this.cb_ShowLine.Text = "显示检查框";
-            this.cb_ShowLine.UseVisualStyleBackColor = true;
             // 
             // cb_AutoLoadScreen
             // 
             this.cb_AutoLoadScreen.AutoSize = true;
             this.cb_AutoLoadScreen.Checked = true;
             this.cb_AutoLoadScreen.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_AutoLoadScreen.Location = new System.Drawing.Point(175, 62);
-            this.cb_AutoLoadScreen.Margin = new System.Windows.Forms.Padding(2);
+            this.cb_AutoLoadScreen.Location = new System.Drawing.Point(233, 78);
+            this.cb_AutoLoadScreen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cb_AutoLoadScreen.Name = "cb_AutoLoadScreen";
-            this.cb_AutoLoadScreen.Size = new System.Drawing.Size(120, 17);
+            this.cb_AutoLoadScreen.Size = new System.Drawing.Size(134, 19);
             this.cb_AutoLoadScreen.TabIndex = 13;
             this.cb_AutoLoadScreen.Text = "自动读取分辨率";
             this.cb_AutoLoadScreen.UseVisualStyleBackColor = true;
@@ -177,27 +216,25 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 66);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(27, 82);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 12;
-            this.label3.Text = "偏移";
+            this.label3.Text = "右下坐标";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 10);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(31, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 13);
+            this.label2.Size = new System.Drawing.Size(67, 15);
             this.label2.TabIndex = 11;
-            this.label2.Text = "缩放";
+            this.label2.Text = "左上坐标";
             // 
             // V1
             // 
-            this.V1.Location = new System.Drawing.Point(89, 94);
-            this.V1.Margin = new System.Windows.Forms.Padding(2);
+            this.V1.Location = new System.Drawing.Point(119, 118);
+            this.V1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.V1.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -209,14 +246,14 @@
             0,
             -2147483648});
             this.V1.Name = "V1";
-            this.V1.Size = new System.Drawing.Size(46, 21);
+            this.V1.Size = new System.Drawing.Size(61, 25);
             this.V1.TabIndex = 10;
             this.V1.ValueChanged += new System.EventHandler(this.ValueChange);
             // 
             // U1
             // 
-            this.U1.Location = new System.Drawing.Point(20, 94);
-            this.U1.Margin = new System.Windows.Forms.Padding(2);
+            this.U1.Location = new System.Drawing.Point(27, 118);
+            this.U1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.U1.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -228,14 +265,14 @@
             0,
             -2147483648});
             this.U1.Name = "U1";
-            this.U1.Size = new System.Drawing.Size(46, 21);
+            this.U1.Size = new System.Drawing.Size(61, 25);
             this.U1.TabIndex = 9;
             this.U1.ValueChanged += new System.EventHandler(this.ValueChange);
             // 
             // V0
             // 
-            this.V0.Location = new System.Drawing.Point(89, 40);
-            this.V0.Margin = new System.Windows.Forms.Padding(2);
+            this.V0.Location = new System.Drawing.Point(119, 50);
+            this.V0.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.V0.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -247,14 +284,14 @@
             0,
             -2147483648});
             this.V0.Name = "V0";
-            this.V0.Size = new System.Drawing.Size(46, 21);
+            this.V0.Size = new System.Drawing.Size(61, 25);
             this.V0.TabIndex = 8;
             this.V0.ValueChanged += new System.EventHandler(this.ValueChange);
             // 
             // U0
             // 
-            this.U0.Location = new System.Drawing.Point(20, 40);
-            this.U0.Margin = new System.Windows.Forms.Padding(2);
+            this.U0.Location = new System.Drawing.Point(27, 50);
+            this.U0.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.U0.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -266,16 +303,16 @@
             0,
             -2147483648});
             this.U0.Name = "U0";
-            this.U0.Size = new System.Drawing.Size(46, 21);
+            this.U0.Size = new System.Drawing.Size(61, 25);
             this.U0.TabIndex = 7;
             this.U0.ValueChanged += new System.EventHandler(this.ValueChange);
             // 
             // btn_SetRect
             // 
-            this.btn_SetRect.Location = new System.Drawing.Point(175, 94);
-            this.btn_SetRect.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_SetRect.Location = new System.Drawing.Point(233, 118);
+            this.btn_SetRect.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_SetRect.Name = "btn_SetRect";
-            this.btn_SetRect.Size = new System.Drawing.Size(86, 27);
+            this.btn_SetRect.Size = new System.Drawing.Size(115, 34);
             this.btn_SetRect.TabIndex = 7;
             this.btn_SetRect.Text = "手动提交分辨率";
             this.btn_SetRect.UseVisualStyleBackColor = true;
@@ -283,19 +320,19 @@
             // 
             // game_height
             // 
-            this.game_height.Location = new System.Drawing.Point(220, 26);
-            this.game_height.Margin = new System.Windows.Forms.Padding(2);
+            this.game_height.Location = new System.Drawing.Point(293, 32);
+            this.game_height.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.game_height.Name = "game_height";
-            this.game_height.Size = new System.Drawing.Size(44, 21);
+            this.game_height.Size = new System.Drawing.Size(57, 25);
             this.game_height.TabIndex = 5;
             this.game_height.Text = "1080";
             // 
             // game_width
             // 
-            this.game_width.Location = new System.Drawing.Point(175, 26);
-            this.game_width.Margin = new System.Windows.Forms.Padding(2);
+            this.game_width.Location = new System.Drawing.Point(233, 32);
+            this.game_width.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.game_width.Name = "game_width";
-            this.game_width.Size = new System.Drawing.Size(42, 21);
+            this.game_width.Size = new System.Drawing.Size(55, 25);
             this.game_width.TabIndex = 4;
             this.game_width.Text = "1920";
             // 
@@ -305,20 +342,20 @@
             this.tabPage4.Controls.Add(this.label1);
             this.tabPage4.Controls.Add(this.pictureBox1);
             this.tabPage4.Controls.Add(this.btn_github);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(290, 186);
+            this.tabPage4.Size = new System.Drawing.Size(419, 672);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "更新";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(167, 78);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Location = new System.Drawing.Point(223, 98);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 42);
+            this.button1.Size = new System.Drawing.Size(164, 52);
             this.button1.TabIndex = 3;
             this.button1.Text = "访问原神Bwiki地图";
             this.button1.UseVisualStyleBackColor = true;
@@ -327,91 +364,58 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 30);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(57, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.Size = new System.Drawing.Size(82, 15);
             this.label1.TabIndex = 2;
             this.label1.Text = "请我吃雪糕";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-3, 2);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Location = new System.Drawing.Point(-4, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(152, 172);
+            this.pictureBox1.Size = new System.Drawing.Size(203, 215);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // btn_github
             // 
-            this.btn_github.Location = new System.Drawing.Point(167, 18);
-            this.btn_github.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_github.Location = new System.Drawing.Point(223, 22);
+            this.btn_github.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_github.Name = "btn_github";
-            this.btn_github.Size = new System.Drawing.Size(123, 42);
+            this.btn_github.Size = new System.Drawing.Size(164, 52);
             this.btn_github.TabIndex = 0;
             this.btn_github.Text = "访问项目开源页面";
             this.btn_github.UseVisualStyleBackColor = true;
             this.btn_github.Click += new System.EventHandler(this.btn_github_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 73);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "钓鱼进度条";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 24);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "体力条中心";
-            // 
-            // progressBar2
-            // 
-            this.progressBar2.Location = new System.Drawing.Point(116, 66);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(170, 30);
-            this.progressBar2.TabIndex = 1;
-            this.progressBar2.Value = 23;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(116, 16);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(169, 31);
-            this.progressBar1.TabIndex = 0;
-            this.progressBar1.Value = 50;
-            // 
             // timer1
             // 
             this.timer1.Enabled = true;
+            this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 346);
-            this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.ClientSize = new System.Drawing.Size(427, 701);
+            this.Controls.Add(this.tabControl1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "凯瑞亚钓鱼机v1.0";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_step)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_current)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_range)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_sign)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_game)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.V1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.U1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.V0)).EndInit();
@@ -424,13 +428,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_open;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.CheckBox cb_ShowLine;
         private System.Windows.Forms.CheckBox cb_AutoLoadScreen;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -442,14 +444,17 @@
         private System.Windows.Forms.TextBox game_height;
         private System.Windows.Forms.TextBox game_width;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btn_github;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ProgressBar progressBar2;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.PictureBox pict_game;
+        private System.Windows.Forms.PictureBox pict_bar;
+        private System.Windows.Forms.PictureBox pict_sign;
+        private System.Windows.Forms.PictureBox pict_current;
+        private System.Windows.Forms.PictureBox pict_range;
+        private System.Windows.Forms.PictureBox pict_step;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Pause;
     }
 }
 

@@ -9,16 +9,10 @@ namespace 坎瑞亚钓鱼机
 {
     public partial class Win32Api
     {
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowRect(IntPtr hWnd, ref Rectangle lpRect);
         [DllImport("user32")]
         public static extern bool GetClientRect(IntPtr hwnd, out RECT lpRect);
         [DllImport("user32 ")]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-        [DllImport("user32.dll")]
-        public static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
         [DllImport("user32 ")]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
         [DllImport("user32.dll")]

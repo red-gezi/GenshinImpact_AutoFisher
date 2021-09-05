@@ -1,0 +1,11 @@
+G:\VSProject\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.csproj.AssemblyReference.cache
+G:\VSProject\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.Form1.resources
+G:\VSProject\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.Properties.Resources.resources
+G:\VSProject\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.csproj.GenerateResource.cache
+G:\VSProject\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.csproj.CoreCompileInputs.cache
+G:\VSProject\GenshinImpact_AutoFisher\bin\Debug\坎瑞亚钓鱼机.exe.config
+G:\VSProject\GenshinImpact_AutoFisher\bin\Debug\坎瑞亚钓鱼机.exe
+G:\VSProject\GenshinImpact_AutoFisher\bin\Debug\坎瑞亚钓鱼机.pdb
+G:\VSProject\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.csproj.Fody.CopyLocal.cache
+G:\VSProject\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.exe
+G:\VSProject\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.pdb

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static 坎瑞亚钓鱼机.InfoModel;
 
@@ -12,185 +13,243 @@ namespace 坎瑞亚钓鱼机
 {
     public partial class Form1 : Form
     {
-        static bool isMapFormOpen;
-        MapForm mapForm;
+        static Bitmap clipImage;
+        static Bitmap scaleImage;
+        static Bitmap signImage;
+        static Bitmap stepImage;
+        static Bitmap rangeImage;
+        static Bitmap currentPointImage;
+
         public Form1()
         {
-            using Bitmap bitmap = (Bitmap)Bitmap.FromFile("bar.png");
-            {
-                Bitmap r = new Bitmap(bitmap);
-                Bitmap g = new Bitmap(bitmap);
-                Bitmap b = new Bitmap(bitmap);
-                Bitmap s = new Bitmap(bitmap);
-                Bitmap avb = new Bitmap(bitmap);
-                for (int i = 0; i < bitmap.Width; i++)
-                {
-                    for (int j = 0; j < bitmap.Height; j++)
-                    {
-                        var color = bitmap.GetPixel(i, j);
-                        int d = (color.R + color.G + color.B) / 3;
-                        //只要能量条
-                        int sv = Math.Sign(Math.Max(0, (color.G - color.R)) - 123) < 0 ? 0 : 255;
-                        //只要标志物
-                        int av = Math.Sign(color.R - 123) < 0 ? 0 : 255;
-                        s.SetPixel(i, j, Color.FromArgb(255, av, av, av));
-                    }
-                }
-                Bitmap outImage = new Bitmap(bitmap);
-                int pixel = 1;
-                for (int i = 0; i < bitmap.Width; i += pixel)
-                {
-                    List<Color> colors = new List<Color>();
-                    for (int x = i; x < i + pixel && x < bitmap.Width; x++)
-                    {
-                        for (int j = 0; j < bitmap.Height; j++)
-                        {
-                            colors.Add(s.GetPixel(x, j));
-                        }
-                    }
-                    Color regionColor = Color.FromArgb(
-                              255,
-                              (int)colors.Select(c => (int)c.R).Average(),
-                              (int)colors.Select(c => (int)c.G).Average(),
-                              (int)colors.Select(c => (int)c.B).Average()
-                              );
-                    for (int x = i; x < i + pixel && x < bitmap.Width; x++)
-                    {
-                        for (int j = 0; j < bitmap.Height; j++)
-                        {
-                            outImage.SetPixel(x, j, regionColor);
-                        }
-                    }
-
-                }
-                r.Save("r.png");
-                g.Save("g.png");
-                b.Save("b.png");
-                s.Save("s.png");
-                outImage.Save("outImage.png");
-            }
+            Info.x = int.Parse(File.ReadAllLines("config/bias.txt")[0]);
+            Info.y = int.Parse(File.ReadAllLines("config/bias.txt")[1]);
+            Info.w = int.Parse(File.ReadAllLines("config/bias.txt")[2]);
+            Info.h = int.Parse(File.ReadAllLines("config/bias.txt")[3]);
             InitializeComponent();
             this.Text = "坎瑞亚钓鱼机v1.0";
             Win32Api.SetProcessDPIAware();
-            DataInfo.LoadData();
-            InputListenerr.GetMouseEvent((key) =>
-            {
-                Console.WriteLine(key);
-                if (key=="513")
-                {
-                    DataInfo.isPauseShowIcon = true;
-                }
-                if (key == "514")
-                {
-                    DataInfo.isPauseShowIcon = false;
-                }
-                DataInfo.isDetection = true;
-            });
-            InputListenerr.GetKeyDownEvent((key) =>
-            {
-                if (key == "M")
-                {
-                    if (isMapFormOpen)
-                    {
-                        btn_Close_Click(null, null);
-                    }
-                    else
-                    {
-                        btn_Open_Click(null, null);
-                    }
-                }
-                if (key == "esc") btn_Close_Click(null, null);
-                DataInfo.isDetection = true;
-            });
-            var items = DataInfo.GetAllPos.Select(icon => icon.name).Distinct().ToArray();
-            //控制地图校准系数
+            ////控制地图校准系数
             string[] configs = File.ReadAllLines("config/bias.txt");
             U0.Text = configs[0];
             V0.Text = configs[1];
             U1.Text = configs[2];
             V1.Text = configs[3];
-            DataInfo.PixelPerIng = float.Parse(File.ReadAllLines("config/bias.txt")[0]);
-            DataInfo.PixelPerLat = float.Parse(File.ReadAllLines("config/bias.txt")[1]);
-            DataInfo.IngBias = float.Parse(File.ReadAllLines("config/bias.txt")[2]);
-            DataInfo.LatBias = float.Parse(File.ReadAllLines("config/bias.txt")[3]);
+
+            clipImage = new Bitmap(Info.w, Info.h);
+            scaleImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
+            signImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
+            stepImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
+            rangeImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
+            currentPointImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
+            _=AnalysicsAsync();
         }
-        private void btn_Open_Click(object sender, EventArgs e)
-        {
-            if (DataInfo.YuanshenProcess != null || DataInfo.isUseFakePicture)
-            {
-                isMapFormOpen = true;
-                mapForm = new MapForm();
-                mapForm.Show();
-            }
-            else
-            {
-                MessageBox.Show("请先打开游戏");
-            }
-        }
-        private void btn_Close_Click(object sender, EventArgs e)
-        {
-            if (mapForm != null)
-            {
-                mapForm.isJumpOutOfTask = true;
-                mapForm.Close();
-                mapForm.Dispose();
-                isMapFormOpen = false;
-            }
-        }
-       
         private void btn_github_Click(object sender, EventArgs e) => Process.Start("https://github.com/red-gezi/GenshinImpact_MonsterMap");
         private void button1_Click(object sender, EventArgs e) => Process.Start("https://wiki.biligame.com/ys/%E5%8E%9F%E7%A5%9E%E5%9C%B0%E5%9B%BE%E5%B7%A5%E5%85%B7_%E5%85%A8%E5%9C%B0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%82%B9");
         private void btn_SetRect_Click(object sender, EventArgs e)
         {
-            DataInfo.width = int.Parse(game_width.Text);
-            DataInfo.height = int.Parse(game_height.Text);
+            Info.width = int.Parse(game_width.Text);
+            Info.height = int.Parse(game_height.Text);
         }
-
         RECT rect = new RECT();
         private void timer1_Tick(object sender, EventArgs e)
         {
-            DataInfo.isShowLine = cb_ShowLine.Checked;
-            DataInfo.selectTags.Clear();
-            
-            if (DataInfo.YuanshenProcess != null && cb_AutoLoadScreen.Checked)
-            {
 
-                Win32Api.GetClientRect(DataInfo.YuanshenProcess.MainWindowHandle, out rect);
-                DataInfo.width = rect.Right;
-                DataInfo.height = rect.Bottom;
+            if (Info.YuanshenProcess != null && cb_AutoLoadScreen.Checked)
+            {
+                Win32Api.GetClientRect(Info.YuanshenProcess.MainWindowHandle, out rect);
+                Info.width = rect.Right;
+                Info.height = rect.Bottom;
                 game_width.Text = rect.Right + "";
                 game_height.Text = rect.Bottom + "";
             }
         }
 
+        private async Task AnalysicsAsync()
+        {
+            while (true)
+            {
+                Timer.Init();
+                if (!Info.isPause)
+                {
+                    using (var gameImage = ImageUnitility.GetScreenshot(Info.YuanshenProcess.MainWindowHandle))
+                    {
+                        try
+                        {
+                            gameImage.Save("game.png");
+
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+                }
+                Timer.Show("屏幕截图");
+                if (new FileInfo("game.png").Exists)
+                {
+                    Bitmap ScreenShot = (Bitmap)Image.FromFile("game.png");
+
+                    DrawClipImage(ScreenShot);
+                    Timer.Show("提取钓鱼槽");
+                    DrawSignImage();
+                    Timer.Show("提取ui槽");
+                    DrawStepImage();
+                    Timer.Show("转换色阶槽");
+                    DrawRangeImage();
+                    Timer.Show("提取范围");
+                    DrawCurrentPointImage();
+                    Timer.Show("提取光标位置");
+                }
+                await Task.Delay(10);
+            }
+        }
+        //从游戏中裁剪相应范围的图
+        private void DrawClipImage(Bitmap gameImage)
+        {
+            if (Info.width > 0 && Info.height > 0)
+            {
+                //Bitmap clipImage = new Bitmap(Info.w, Info.h);
+                using (Graphics g = Graphics.FromImage(clipImage))
+                {
+                    g.DrawImage(
+                        gameImage,
+                        new Rectangle(0, 0, Info.width, Info.height),
+                        new Rectangle(Info.x, Info.y, Info.w, Info.h),
+                        GraphicsUnit.Pixel);
+                }
+                clipImage.Save("clip.png");
+                scaleImage = (Bitmap)clipImage.GetThumbnailImage(Info.showImageWidth, Info.showImageHeigh, null, IntPtr.Zero);
+                scaleImage.Save("scale.png");
+                gameImage.Dispose();
+                pict_bar.Image = scaleImage;
+                Console.WriteLine("修改成功");
+            }
+        }
+
+        //创建UI指示物提取图
+        private void DrawSignImage()
+        {
+            //var fast_clipImage = new FastBitmap(clipImage);
+            //var fast_scaleImage = new FastBitmap(scaleImage);
+            //fast_clipImage.LockBits();
+            //fast_scaleImage.LockBits();
+            //for (int i = 0; i < Info.showImageWidth; i++)
+            //{
+            //    for (int j = 0; j < Info.showImageHeigh; j++)
+            //    {
+            //        var color = fast_clipImage.GetPixel(i, j);
+            //        int sign = Math.Abs(color.R - 255) + Math.Abs(color.G - 255) + Math.Abs(color.B - 192) < 100 ? 255 : 0;
+            //        fast_scaleImage.SetPixel(i, j, Color.FromArgb(255, sign, sign, sign));
+            //    }
+            //}
+            //fast_clipImage.UnlockBits();
+            //fast_scaleImage.UnlockBits();
+            //pict_sign.Image = signImage;
+            for (int i = 0; i < Info.showImageWidth; i++)
+            {
+                for (int j = 0; j < Info.showImageHeigh; j++)
+                {
+                    var color = scaleImage.GetPixel(i, j);
+                    int sign = Math.Abs(color.R - 255) + Math.Abs(color.G - 255) + Math.Abs(color.B - 192) < 100 ? 255 : 0;
+                    signImage.SetPixel(i, j, Color.FromArgb(255, sign, sign, sign));
+                }
+            }
+            pict_sign.Image = signImage;
+            signImage.Save("sign.png");
+        }
+
+        //创建色阶图
+        private void DrawStepImage()
+        {
+            const int pixel = 1;
+            for (int i = 0; i < Info.showImageWidth; i += pixel)
+            {
+                List<Color> colors = new List<Color>();
+                for (int x = i; x < i + pixel && x < Info.showImageWidth; x++)
+                {
+                    for (int j = 0; j < Info.showImageHeigh; j++)
+                    {
+                        colors.Add(signImage.GetPixel(x, j));
+                    }
+                }
+                Color regionColor = Color.FromArgb(
+                          255,
+                          (int)colors.Select(c => (int)c.R).Average(),
+                          (int)colors.Select(c => (int)c.G).Average(),
+                          (int)colors.Select(c => (int)c.B).Average()
+                          );
+                for (int x = i; x < i + pixel && x < Info.showImageWidth; x++)
+                {
+                    for (int j = 0; j < Info.showImageHeigh; j++)
+                    {
+                        stepImage.SetPixel(x, j, regionColor);
+                    }
+                }
+            }
+            pict_step.Image = stepImage;
+            //outImage.Save("outImage.png");
+        }
+        private void DrawRangeImage()
+        {
+            for (int i = 0; i < Info.showImageWidth; i++)
+            {
+                for (int j = 0; j < Info.showImageHeigh; j++)
+                {
+                    var color = stepImage.GetPixel(i, j);
+                    int gray = (color.R + color.G + color.B) / 3;
+                    int value = ((50 < gray) && (gray < 150)) ? 255 : 0;
+                    rangeImage.SetPixel(i, j, Color.FromArgb(255, value, value, value));
+                }
+            }
+            pict_range.Image = rangeImage;
+            //rangeImage.Save("rangeImage.png");
+        }
+        private void DrawCurrentPointImage()
+        {
+            for (int i = 0; i < Info.showImageWidth; i++)
+            {
+                for (int j = 0; j < Info.showImageHeigh; j++)
+                {
+                    var color = stepImage.GetPixel(i, j);
+                    int gray = (color.R + color.G + color.B) / 3;
+                    int value = ((150 < gray) && (gray < 255)) ? 255 : 0;
+                    currentPointImage.SetPixel(i, j, Color.FromArgb(255, value, value, value));
+                }
+            }
+            pict_current.Image = currentPointImage;
+            //currentPointImage.Save("outImage.png");
+        }
         private void ValueChange(object sender, EventArgs e)
         {
             if (U0.Value + V0.Value + U1.Value + V1.Value != 0)
             {
                 Console.WriteLine("修正映射参数");
-                DataInfo.PixelPerIng = (float)U0.Value;
-                DataInfo.PixelPerLat = (float)V0.Value;
-                DataInfo.IngBias = (float)U1.Value;
-                DataInfo.LatBias = (float)V1.Value;
+                Info.x = (int)U0.Value;
+                Info.y = (int)V0.Value;
+                Info.w = (int)U1.Value;
+                Info.h = (int)V1.Value;
                 File.WriteAllLines("config/bias.txt", new string[] {
-                DataInfo.PixelPerIng.ToString(),
-                DataInfo.PixelPerLat.ToString(),
-                DataInfo.IngBias.ToString(),
-                DataInfo.LatBias.ToString(),
-            });
+                Info.x.ToString(),
+                Info.y.ToString(),
+                Info.w.ToString(),
+                Info.h.ToString(),
+                });
+                if (Info.w != 0 && Info.h != 0)
+                {
+                    clipImage = new Bitmap(Info.w, Info.h);
+                    //signImage = new Bitmap(Info.w, Info.h);
+                    //stepImage = new Bitmap(Info.w, Info.h);
+                    //rangeImage = new Bitmap(Info.w, Info.h);
+                    //currentPointImage = new Bitmap(Info.w, Info.h);
+                }
+
             }
-
         }
-
-        private void V0_ValueChanged(object sender, EventArgs e) => File.WriteAllLines("config/bias.txt", new string[] { U0.Text, ((NumericUpDown)sender).Value.ToString(), U1.Text, V1.Text, });
-
-        private void U0_ValueChanged(object sender, EventArgs e) => File.WriteAllLines("config/bias.txt", new string[] { ((NumericUpDown)sender).Value.ToString(), V0.Text, U1.Text, V1.Text, });
-        private void U1_ValueChanged(object sender, EventArgs e) => File.WriteAllLines("config/bias.txt", new string[] { U0.Text, V0.Text, ((NumericUpDown)sender).Value.ToString(), V1.Text, });
-        private void V1_ValueChanged(object sender, EventArgs e) => File.WriteAllLines("config/bias.txt", new string[] { U0.Text, V0.Text, U1.Text, ((NumericUpDown)sender).Value.ToString(), });
-
         private void button2_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void btn_Pause_Click(object sender, EventArgs e) => Info.isPause = !Info.isPause;
     }
 }

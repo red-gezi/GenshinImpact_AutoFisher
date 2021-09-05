@@ -1,0 +1,35 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace 坎瑞亚钓鱼机
+{
+    /// <summary>
+    /// 全局信息类
+    /// </summary>
+    class Info
+    {
+       
+        //校准
+        public static int x = 0;
+        public static int y = 0;
+        public static int w = 0;
+        public static int h = 0;
+        public static int showImageWidth = 150;
+        public static int showImageHeigh = 20;
+        static Process[] gameProcess => Process.GetProcessesByName(isUseFakePicture ? "NotePad" : "YuanShen");
+        public static Process YuanshenProcess => gameProcess.Any() ? gameProcess[0] : null;
+        public static IntPtr mainHandle => YuanshenProcess.MainWindowHandle;
+        public static IntPtr hDeskTop = Win32Api.FindWindow("Progman ", "Program   Manager ");
+
+        public static int width = 1920;
+        public static int height = 1080;
+        public static bool isPause = true;
+        public static bool isUseFakePicture;
+    }
+}
