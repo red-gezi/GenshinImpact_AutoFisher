@@ -20,8 +20,15 @@ namespace 坎瑞亚钓鱼机
         public static int y = 0;
         public static int w = 0;
         public static int h = 0;
-        public static int showImageWidth = 150;
+        public static int showImageWidth = 100;
         public static int showImageHeigh = 20;
+
+        public static int rangeMin=1;
+        public static int rangeMax=10;
+        public static int cursorValue=1;
+        public static bool isLastMouseShouldDown = false;
+        public static bool isMouseShouldDown= cursorValue<(rangeMin+ rangeMax)/2;
+
         static Process[] gameProcess => Process.GetProcessesByName(isUseFakePicture ? "NotePad" : "YuanShen");
         public static Process YuanshenProcess => gameProcess.Any() ? gameProcess[0] : null;
         public static IntPtr mainHandle => YuanshenProcess.MainWindowHandle;

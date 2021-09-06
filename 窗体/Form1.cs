@@ -18,7 +18,7 @@ namespace 坎瑞亚钓鱼机
         static Bitmap signImage;
         static Bitmap stepImage;
         static Bitmap rangeImage;
-        static Bitmap CursorImage;
+        static Bitmap cursorImage;
 
         public Form1()
         {
@@ -41,8 +41,8 @@ namespace 坎瑞亚钓鱼机
             signImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
             stepImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
             rangeImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
-            CursorImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
-            _=AnalysicsAsync();
+            cursorImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
+            _ = AnalysicsAsync();
         }
         private void btn_github_Click(object sender, EventArgs e) => Process.Start("https://github.com/red-gezi/GenshinImpact_MonsterMap");
         private void button1_Click(object sender, EventArgs e) => Process.Start("https://wiki.biligame.com/ys/%E5%8E%9F%E7%A5%9E%E5%9C%B0%E5%9B%BE%E5%B7%A5%E5%85%B7_%E5%85%A8%E5%9C%B0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%82%B9");
@@ -54,7 +54,6 @@ namespace 坎瑞亚钓鱼机
         RECT rect = new RECT();
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             if (Info.YuanshenProcess != null && cb_AutoLoadScreen.Checked)
             {
                 Win32Api.GetClientRect(Info.YuanshenProcess.MainWindowHandle, out rect);
@@ -70,36 +69,37 @@ namespace 坎瑞亚钓鱼机
             while (true)
             {
                 Timer.Init();
-                if (!Info.isPause)
-                {
-                    using (var gameImage = ImageUnitility.GetScreenshot(Info.YuanshenProcess.MainWindowHandle))
-                    {
-                        try
-                        {
-                            gameImage.Save("game.png");
-
-                        }
-                        catch (Exception)
-                        {
-                        }
-                    }
-                }
-                //Timer.Show("屏幕截图");
+                Timer.Show("屏幕截图");
                 if (new FileInfo("game.png").Exists)
                 {
-                    Bitmap ScreenShot = (Bitmap)Image.FromFile("game.png");
-
+                    Bitmap ScreenShot = Info.isPause ? (Bitmap)Image.FromFile("game.png") : ImageUnitility.GetScreenshot(Info.YuanshenProcess.MainWindowHandle);
                     DrawClipImage(ScreenShot);
-                    //Timer.Show("提取钓鱼槽");
+                    Timer.Show("提取钓鱼槽");
                     DrawSignImage();
-                    //Timer.Show("提取ui槽");
+                    Timer.Show("提取ui槽");
                     DrawStepImage();
-                    //Timer.Show("转换色阶槽");
+                    Timer.Show("转换色阶槽");
                     DrawRangeImage();
-                    //Timer.Show("提取范围");
+                    Timer.Show("提取范围");
                     DrawCursorImage();
-                    //Timer.Show("提取光标位置");
+                    Timer.Show("提取光标位置");
                 }
+                Console.WriteLine(Info.isMouseShouldDown+"-" +Info.isLastMouseShouldDown);
+                //if (Info.isMouseShouldDown&&!Info.isLastMouseShouldDown)
+                //{
+                //    InputListenerr.SetMouseDown(true);
+                //}
+                //if (!Info.isMouseShouldDown && Info.isLastMouseShouldDown)
+                //{
+                //    InputListenerr.SetMouseDown(false);
+                //}
+                //Info.isLastMouseShouldDown = Info.isMouseShouldDown;
+                if (Info.isMouseShouldDown&&!Info.isPause)
+                {
+                    InputListenerr.SetMouseDown(true);
+
+                }
+
                 await Task.Delay(10);
             }
         }
@@ -116,9 +116,9 @@ namespace 坎瑞亚钓鱼机
                         new Rectangle(Info.x, Info.y, Info.w, Info.h),
                         GraphicsUnit.Pixel);
                 }
-                clipImage.Save("clip.png");
+                //clipImage.Save("clip.png");
                 scaleImage = (Bitmap)clipImage.GetThumbnailImage(Info.showImageWidth, Info.showImageHeigh, null, IntPtr.Zero);
-                scaleImage.Save("scale.png");
+                //scaleImage.Save("scale.png");
                 gameImage.Dispose();
                 pict_bar.Image = scaleImage;
                 //Console.WriteLine("修改成功");
@@ -138,7 +138,7 @@ namespace 坎瑞亚钓鱼机
                 }
             }
             pict_sign.Image = signImage;
-            signImage.Save("sign.png");
+            //signImage.Save("sign.png");
         }
 
         //绘制色阶图
@@ -185,6 +185,31 @@ namespace 坎瑞亚钓鱼机
                     rangeImage.SetPixel(i, j, Color.FromArgb(255, value, value, value));
                 }
             }
+            try
+            {
+                for (int i = 0; i < Info.showImageWidth; i++)
+                {
+                    if (rangeImage.GetPixel(i, 0).R == 255)
+                    {
+                        Info.rangeMin = i;
+                        break;
+                    }
+                }
+                for (int i = Info.showImageWidth-1; i >= 0; i--)
+                {
+                    if (rangeImage.GetPixel(i, 0).R == 255)
+                    {
+                        Info.rangeMax = i;
+                        break;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+           
+            label_range.Text = $"范围刻度：{Info.rangeMin}-{Info.rangeMax}";
             pict_range.Image = rangeImage;
             //rangeImage.Save("rangeImage.png");
         }
@@ -198,10 +223,20 @@ namespace 坎瑞亚钓鱼机
                     var color = stepImage.GetPixel(i, j);
                     int gray = (color.R + color.G + color.B) / 3;
                     int value = ((cursorMin.Value < gray) && (gray < cursorMax.Value)) ? 255 : 0;
-                    CursorImage.SetPixel(i, j, Color.FromArgb(255, value, value, value));
+                    cursorImage.SetPixel(i, j, Color.FromArgb(255, value, value, value));
                 }
             }
-            pict_current.Image = CursorImage;
+            for (int i = 0; i < Info.showImageWidth; i++)
+            {
+                if (cursorImage.GetPixel(i, 0).R==255)
+                {
+                    Info.cursorValue = i;
+                    break;
+                }
+            }
+            label_cursor.Text = $"游标刻度：{ Info.cursorValue}";
+
+            pict_current.Image = cursorImage;
             //currentPointImage.Save("outImage.png");
         }
         private void ValueChange(object sender, EventArgs e)
@@ -223,12 +258,7 @@ namespace 坎瑞亚钓鱼机
                 if (Info.w != 0 && Info.h != 0)
                 {
                     clipImage = new Bitmap(Info.w, Info.h);
-                    //signImage = new Bitmap(Info.w, Info.h);
-                    //stepImage = new Bitmap(Info.w, Info.h);
-                    //rangeImage = new Bitmap(Info.w, Info.h);
-                    //currentPointImage = new Bitmap(Info.w, Info.h);
                 }
-
             }
         }
         private void button2_Click(object sender, EventArgs e)

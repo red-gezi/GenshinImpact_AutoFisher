@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using 坎瑞亚钓鱼机;
 /// <summary>
 /// 全局检测类
 /// </summary>
@@ -11,6 +12,10 @@ class InputListenerr
     static WindowsHookCallBack k_callback;
     ///该类作用在于放在后台也能检测到鼠标输入
     static WindowsHookCallBack m_callback;
+    //模拟鼠标左键按下 
+    const int MOUSEEVENTF_LEFTDOWN = 0x0002;
+    //模拟鼠标左键抬起 
+    const int MOUSEEVENTF_LEFTUP = 0x0004;
     public static void GetKeyDownEvent(Action<string> response)
     {
         k_callback = CreateCallBack((status, data) =>
@@ -48,6 +53,10 @@ class InputListenerr
 
         });
         IntPtr intPtr = SetWindowsHookEx(WindowsHookType.WH_MOUSE_LL, m_callback, IntPtr.Zero, 0);
+    }
+    public static void SetMouseDown(bool isMouseDown)
+    {
+        Win32Api.mouse_event(isMouseDown?MOUSEEVENTF_LEFTDOWN: MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
     }
     public enum KeyBoredHookStatus
     {

@@ -31,5 +31,8 @@ namespace 坎瑞亚钓鱼机
         public static extern bool PrintWindow(IntPtr hwnd, IntPtr hdcBlt, int nFlags);
         [DllImport("user32.dll")]
         public static extern IntPtr GetWindowDC(IntPtr hwnd);
+        [DllImport("user32")]
+        public static extern int mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+      
     }
 }
