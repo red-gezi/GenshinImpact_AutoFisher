@@ -18,7 +18,7 @@ namespace 坎瑞亚钓鱼机
         static Bitmap signImage;
         static Bitmap stepImage;
         static Bitmap rangeImage;
-        static Bitmap currentPointImage;
+        static Bitmap CursorImage;
 
         public Form1()
         {
@@ -31,17 +31,17 @@ namespace 坎瑞亚钓鱼机
             Win32Api.SetProcessDPIAware();
             ////控制地图校准系数
             string[] configs = File.ReadAllLines("config/bias.txt");
-            U0.Text = configs[0];
-            V0.Text = configs[1];
-            U1.Text = configs[2];
-            V1.Text = configs[3];
+            X.Text = configs[0];
+            Y.Text = configs[1];
+            W.Text = configs[2];
+            H.Text = configs[3];
 
             clipImage = new Bitmap(Info.w, Info.h);
             scaleImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
             signImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
             stepImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
             rangeImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
-            currentPointImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
+            CursorImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
             _=AnalysicsAsync();
         }
         private void btn_github_Click(object sender, EventArgs e) => Process.Start("https://github.com/red-gezi/GenshinImpact_MonsterMap");
@@ -84,21 +84,21 @@ namespace 坎瑞亚钓鱼机
                         }
                     }
                 }
-                Timer.Show("屏幕截图");
+                //Timer.Show("屏幕截图");
                 if (new FileInfo("game.png").Exists)
                 {
                     Bitmap ScreenShot = (Bitmap)Image.FromFile("game.png");
 
                     DrawClipImage(ScreenShot);
-                    Timer.Show("提取钓鱼槽");
+                    //Timer.Show("提取钓鱼槽");
                     DrawSignImage();
-                    Timer.Show("提取ui槽");
+                    //Timer.Show("提取ui槽");
                     DrawStepImage();
-                    Timer.Show("转换色阶槽");
+                    //Timer.Show("转换色阶槽");
                     DrawRangeImage();
-                    Timer.Show("提取范围");
-                    DrawCurrentPointImage();
-                    Timer.Show("提取光标位置");
+                    //Timer.Show("提取范围");
+                    DrawCursorImage();
+                    //Timer.Show("提取光标位置");
                 }
                 await Task.Delay(10);
             }
@@ -108,7 +108,6 @@ namespace 坎瑞亚钓鱼机
         {
             if (Info.width > 0 && Info.height > 0)
             {
-                //Bitmap clipImage = new Bitmap(Info.w, Info.h);
                 using (Graphics g = Graphics.FromImage(clipImage))
                 {
                     g.DrawImage(
@@ -122,35 +121,19 @@ namespace 坎瑞亚钓鱼机
                 scaleImage.Save("scale.png");
                 gameImage.Dispose();
                 pict_bar.Image = scaleImage;
-                Console.WriteLine("修改成功");
+                //Console.WriteLine("修改成功");
             }
         }
 
-        //创建UI指示物提取图
+        //绘制UI指示物提取图
         private void DrawSignImage()
         {
-            //var fast_clipImage = new FastBitmap(clipImage);
-            //var fast_scaleImage = new FastBitmap(scaleImage);
-            //fast_clipImage.LockBits();
-            //fast_scaleImage.LockBits();
-            //for (int i = 0; i < Info.showImageWidth; i++)
-            //{
-            //    for (int j = 0; j < Info.showImageHeigh; j++)
-            //    {
-            //        var color = fast_clipImage.GetPixel(i, j);
-            //        int sign = Math.Abs(color.R - 255) + Math.Abs(color.G - 255) + Math.Abs(color.B - 192) < 100 ? 255 : 0;
-            //        fast_scaleImage.SetPixel(i, j, Color.FromArgb(255, sign, sign, sign));
-            //    }
-            //}
-            //fast_clipImage.UnlockBits();
-            //fast_scaleImage.UnlockBits();
-            //pict_sign.Image = signImage;
             for (int i = 0; i < Info.showImageWidth; i++)
             {
                 for (int j = 0; j < Info.showImageHeigh; j++)
                 {
                     var color = scaleImage.GetPixel(i, j);
-                    int sign = Math.Abs(color.R - 255) + Math.Abs(color.G - 255) + Math.Abs(color.B - 192) < 100 ? 255 : 0;
+                    int sign = Math.Abs(color.R - 255) + Math.Abs(color.G - 255) + Math.Abs(color.B - 192) < colorStep.Value ? 255 : 0;
                     signImage.SetPixel(i, j, Color.FromArgb(255, sign, sign, sign));
                 }
             }
@@ -158,7 +141,7 @@ namespace 坎瑞亚钓鱼机
             signImage.Save("sign.png");
         }
 
-        //创建色阶图
+        //绘制色阶图
         private void DrawStepImage()
         {
             const int pixel = 1;
@@ -189,6 +172,7 @@ namespace 坎瑞亚钓鱼机
             pict_step.Image = stepImage;
             //outImage.Save("outImage.png");
         }
+        //提取范围槽并绘制绘制
         private void DrawRangeImage()
         {
             for (int i = 0; i < Info.showImageWidth; i++)
@@ -197,14 +181,15 @@ namespace 坎瑞亚钓鱼机
                 {
                     var color = stepImage.GetPixel(i, j);
                     int gray = (color.R + color.G + color.B) / 3;
-                    int value = ((50 < gray) && (gray < 150)) ? 255 : 0;
+                    int value = ((rangeMin.Value < gray) && (gray < rangeMax.Value)) ? 255 : 0;
                     rangeImage.SetPixel(i, j, Color.FromArgb(255, value, value, value));
                 }
             }
             pict_range.Image = rangeImage;
             //rangeImage.Save("rangeImage.png");
         }
-        private void DrawCurrentPointImage()
+        //提取游标槽并绘制绘制
+        private void DrawCursorImage()
         {
             for (int i = 0; i < Info.showImageWidth; i++)
             {
@@ -212,22 +197,23 @@ namespace 坎瑞亚钓鱼机
                 {
                     var color = stepImage.GetPixel(i, j);
                     int gray = (color.R + color.G + color.B) / 3;
-                    int value = ((150 < gray) && (gray < 255)) ? 255 : 0;
-                    currentPointImage.SetPixel(i, j, Color.FromArgb(255, value, value, value));
+                    int value = ((cursorMin.Value < gray) && (gray < cursorMax.Value)) ? 255 : 0;
+                    CursorImage.SetPixel(i, j, Color.FromArgb(255, value, value, value));
                 }
             }
-            pict_current.Image = currentPointImage;
+            pict_current.Image = CursorImage;
             //currentPointImage.Save("outImage.png");
         }
         private void ValueChange(object sender, EventArgs e)
         {
-            if (U0.Value + V0.Value + U1.Value + V1.Value != 0)
+            Console.WriteLine(sender);
+            if (X.Value + Y.Value + W.Value + H.Value != 0)
             {
                 Console.WriteLine("修正映射参数");
-                Info.x = (int)U0.Value;
-                Info.y = (int)V0.Value;
-                Info.w = (int)U1.Value;
-                Info.h = (int)V1.Value;
+                Info.x = (int)X.Value;
+                Info.y = (int)Y.Value;
+                Info.w = (int)W.Value;
+                Info.h = (int)H.Value;
                 File.WriteAllLines("config/bias.txt", new string[] {
                 Info.x.ToString(),
                 Info.y.ToString(),
