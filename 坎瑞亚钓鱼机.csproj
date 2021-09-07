@@ -103,6 +103,11 @@
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -142,23 +147,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Script\FastBitmap.cs" />
     <Compile Include="Script\Info.cs" />
     <Compile Include="Script\ImageUnitility.cs" />
-    <Compile Include="Script\InfoModel.cs" />
     <Compile Include="Script\Timer.cs" />
-    <Compile Include="窗体\Form1.cs">
+    <Compile Include="Script\Config.cs" />
+    <Compile Include="窗体\FishForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="窗体\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="窗体\FishForm.Designer.cs">
+      <DependentUpon>FishForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Script\InputListenerr.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\Win32Api.cs" />
-    <EmbeddedResource Include="窗体\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="窗体\FishForm.resx">
+      <DependentUpon>FishForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

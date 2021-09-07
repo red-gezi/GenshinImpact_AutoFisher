@@ -18,8 +18,8 @@ namespace 坎瑞亚钓鱼机
         //校准
         public static int x = 0;
         public static int y = 0;
-        public static int w = 0;
-        public static int h = 0;
+        public static int w = 1;
+        public static int h = 1;
         public static int showImageWidth = 100;
         public static int showImageHeigh = 20;
 
@@ -29,14 +29,15 @@ namespace 坎瑞亚钓鱼机
         public static bool isLastMouseShouldDown = false;
         public static bool isMouseShouldDown= cursorValue<(rangeMin+ rangeMax)/2;
 
-        static Process[] gameProcess => Process.GetProcessesByName(isUseFakePicture ? "NotePad" : "YuanShen");
+        static Process[] gameProcess => Process.GetProcessesByName( "YuanShen");
         public static Process YuanshenProcess => gameProcess.Any() ? gameProcess[0] : null;
         public static IntPtr mainHandle => YuanshenProcess.MainWindowHandle;
         public static IntPtr hDeskTop = Win32Api.FindWindow("Progman ", "Program   Manager ");
 
         public static int width = 1920;
         public static int height = 1080;
+        public static bool isInitConfigOver = false;
         public static bool isPause = true;
-        public static bool isUseFakePicture;
+        public static bool isAutoMouseDown = true;
     }
 }

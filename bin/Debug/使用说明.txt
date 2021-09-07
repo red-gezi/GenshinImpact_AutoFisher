@@ -4,4 +4,4 @@
 则改为："X:\Genshin Impact\launcher.exe" -popupwindow
 2:启动程序
 3:选择标签
-4:进入游戏，按m打开小地图，再按m或esc关闭（比较占用cpu，不用的时候请关闭）
+4:进入游戏，
