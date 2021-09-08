@@ -69,6 +69,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btn_github = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pict_light = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cursorMax)).BeginInit();
@@ -87,6 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.X)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_light)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -103,6 +105,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.pict_light);
             this.tabPage2.Controls.Add(this.label_cursor);
             this.tabPage2.Controls.Add(this.label_range);
             this.tabPage2.Controls.Add(this.cursorMax);
@@ -148,7 +151,7 @@
             this.label_cursor.AutoSize = true;
             this.label_cursor.Location = new System.Drawing.Point(11, 230);
             this.label_cursor.Name = "label_cursor";
-            this.label_cursor.Size = new System.Drawing.Size(77, 12);
+            this.label_cursor.Size = new System.Drawing.Size(86, 13);
             this.label_cursor.TabIndex = 35;
             this.label_cursor.Text = "游标刻度：10";
             // 
@@ -157,7 +160,7 @@
             this.label_range.AutoSize = true;
             this.label_range.Location = new System.Drawing.Point(11, 214);
             this.label_range.Name = "label_range";
-            this.label_range.Size = new System.Drawing.Size(95, 12);
+            this.label_range.Size = new System.Drawing.Size(107, 13);
             this.label_range.TabIndex = 34;
             this.label_range.Text = "范围刻度：10-50";
             // 
@@ -213,7 +216,7 @@
             this.label9.Location = new System.Drawing.Point(4, 173);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(101, 12);
+            this.label9.Size = new System.Drawing.Size(111, 13);
             this.label9.TabIndex = 31;
             this.label9.Text = "游标提取强度区间";
             // 
@@ -269,7 +272,7 @@
             this.label8.Location = new System.Drawing.Point(5, 136);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(113, 12);
+            this.label8.Size = new System.Drawing.Size(124, 13);
             this.label8.TabIndex = 28;
             this.label8.Text = "范围槽提取强度区间";
             // 
@@ -279,7 +282,7 @@
             this.label7.Location = new System.Drawing.Point(4, 93);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(77, 12);
+            this.label7.Size = new System.Drawing.Size(85, 13);
             this.label7.TabIndex = 27;
             this.label7.Text = "色彩相似范围";
             // 
@@ -312,7 +315,7 @@
             this.label6.Location = new System.Drawing.Point(70, 64);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(11, 12);
+            this.label6.Size = new System.Drawing.Size(14, 13);
             this.label6.TabIndex = 25;
             this.label6.Text = "h";
             // 
@@ -322,7 +325,7 @@
             this.label5.Location = new System.Drawing.Point(4, 64);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(11, 12);
+            this.label5.Size = new System.Drawing.Size(14, 13);
             this.label5.TabIndex = 24;
             this.label5.Text = "w";
             // 
@@ -332,7 +335,7 @@
             this.label4.Location = new System.Drawing.Point(70, 10);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(11, 12);
+            this.label4.Size = new System.Drawing.Size(14, 13);
             this.label4.TabIndex = 23;
             this.label4.Text = "y";
             // 
@@ -427,7 +430,7 @@
             this.cb_AutoLoadScreen.Location = new System.Drawing.Point(175, 62);
             this.cb_AutoLoadScreen.Margin = new System.Windows.Forms.Padding(2);
             this.cb_AutoLoadScreen.Name = "cb_AutoLoadScreen";
-            this.cb_AutoLoadScreen.Size = new System.Drawing.Size(108, 16);
+            this.cb_AutoLoadScreen.Size = new System.Drawing.Size(120, 17);
             this.cb_AutoLoadScreen.TabIndex = 13;
             this.cb_AutoLoadScreen.Text = "自动读取分辨率";
             this.cb_AutoLoadScreen.UseVisualStyleBackColor = true;
@@ -438,7 +441,7 @@
             this.label3.Location = new System.Drawing.Point(20, 34);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "右下坐标";
             // 
@@ -448,7 +451,7 @@
             this.label2.Location = new System.Drawing.Point(5, 10);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(11, 12);
+            this.label2.Size = new System.Drawing.Size(14, 13);
             this.label2.TabIndex = 11;
             this.label2.Text = "x";
             // 
@@ -566,7 +569,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(312, 535);
+            this.tabPage4.Size = new System.Drawing.Size(295, 535);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "更新";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -588,7 +591,7 @@
             this.label1.Location = new System.Drawing.Point(43, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "请我吃雪糕";
             // 
@@ -620,14 +623,23 @@
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // Form1
+            // pict_light
+            // 
+            this.pict_light.Location = new System.Drawing.Point(175, 214);
+            this.pict_light.Name = "pict_light";
+            this.pict_light.Size = new System.Drawing.Size(86, 25);
+            this.pict_light.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pict_light.TabIndex = 36;
+            this.pict_light.TabStop = false;
+            // 
+            // FishForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 561);
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
+            this.Name = "FishForm";
             this.Text = "凯瑞亚钓鱼机v1.0";
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -649,6 +661,7 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pict_light)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -693,6 +706,7 @@
         private System.Windows.Forms.NumericUpDown colorStep;
         private System.Windows.Forms.Label label_cursor;
         private System.Windows.Forms.Label label_range;
+        private System.Windows.Forms.PictureBox pict_light;
     }
 }
 

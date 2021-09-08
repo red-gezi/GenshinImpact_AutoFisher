@@ -22,7 +22,10 @@ namespace 坎瑞亚钓鱼机
         public static int rangeMax=10;
         public static int cursorValue=1;
         public static bool isLastMouseShouldDown = false;
-        public static bool isMouseShouldDown= cursorValue<(rangeMin+ rangeMax)/2;
+        public static bool isDetectionRange;
+        public static bool isDetectionCursor;
+        public static bool isDetectionSuccess=> rangeMax - rangeMin > 5&& isDetectionRange;
+        public static bool isMouseShouldDown=>cursorValue<(rangeMin+ rangeMax)/2&& isDetectionSuccess;
 
         static Process[] gameProcess => Process.GetProcessesByName( "YuanShen");
         public static Process YuanshenProcess => gameProcess.Any() ? gameProcess[0] : null;
@@ -33,6 +36,7 @@ namespace 坎瑞亚钓鱼机
         public static int height = 1080;
         public static bool isInitConfigOver = false;
         public static bool isPause = true;
-        public static bool isAutoMouseDown = true;
+        public static bool isStart = true;
+        //public static bool isAutoMouseDown = false;
     }
 }

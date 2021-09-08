@@ -19,7 +19,6 @@ namespace 坎瑞亚钓鱼机
         static Bitmap stepImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
         static Bitmap rangeImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
         static Bitmap cursorImage = new Bitmap(Info.showImageWidth, Info.showImageHeigh);
-
         public FishForm()
         {
             InitializeComponent();
@@ -32,6 +31,7 @@ namespace 坎瑞亚钓鱼机
             rangeMax.Value = Config.GetConfig(6);
             cursorMin.Value = Config.GetConfig(7);
             cursorMax.Value = Config.GetConfig(8);
+            pict_light.Image = new Bitmap(1, 1);
             Info.isInitConfigOver = true;
             clipImage = new Bitmap((int)W.Value, (int)H.Value);
             this.Text = "坎瑞亚钓鱼机v1.0";
@@ -47,7 +47,17 @@ namespace 坎瑞亚钓鱼机
             {
                 if (key == "CtrlO")
                 {
-                    Console.WriteLine("打开");
+                    if (Info.isStart)
+                    {
+                        Console.WriteLine("关闭");
+                        Info.isStart = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("打开");
+                        Info.isStart = true;
+                    }
+                    
                 }
                 if (key == "P")
                 {
@@ -101,6 +111,19 @@ namespace 坎瑞亚钓鱼机
                     DrawCursorImage();
                     Timer.Show("提取光标位置");
                 }
+               
+                if (Info.isMouseShouldDown)
+                {
+                    Bitmap bitmap = ((Bitmap)pict_light.Image);
+                    bitmap.SetPixel(0, 0, Color.Red);
+                    pict_light.Image = bitmap;
+                }
+                else
+                {
+                    Bitmap bitmap = ((Bitmap)pict_light.Image);
+                    bitmap.SetPixel(0, 0, Color.Gray);
+                    pict_light.Image = bitmap;
+                }
                 // Console.WriteLine(Info.isMouseShouldDown+"-" +Info.isLastMouseShouldDown);
                 //if (Info.isMouseShouldDown&&!Info.isLastMouseShouldDown)
                 //{
@@ -114,7 +137,6 @@ namespace 坎瑞亚钓鱼机
                 //if (Info.isMouseShouldDown&&!Info.isPause)
                 //{
                 //    InputListenerr.SetMouseDown(true);
-
                 //}
                 await Task.Delay(1);
             }
@@ -199,11 +221,13 @@ namespace 坎瑞亚钓鱼机
                 }
             }
             Info.rangeMin = 0;
+            Info.isDetectionRange = false;
             for (int i = 0; i < Info.showImageWidth; i++)
             {
                 if (rangeImage.GetPixel(i, 0).R == 255)
                 {
                     Info.rangeMin = i;
+                    Info.isDetectionRange = true;
                     break;
                 }
             }
@@ -234,11 +258,14 @@ namespace 坎瑞亚钓鱼机
                 }
             }
             Info.cursorValue = 0;
+            Info.isDetectionCursor = false;
+
             for (int i = 0; i < Info.showImageWidth; i++)
             {
                 if (cursorImage.GetPixel(i, 0).R == 255)
                 {
                     Info.cursorValue = i;
+                    Info.isDetectionCursor = true;
                     break;
                 }
             }
@@ -248,7 +275,6 @@ namespace 坎瑞亚钓鱼机
         }
         private void ValueChange(object sender, EventArgs e)
         {
-
             if (Info.isInitConfigOver)
             {
                 Console.WriteLine("刷新值");
@@ -273,8 +299,8 @@ namespace 坎瑞亚钓鱼机
         private void btn_github_Click(object sender, EventArgs e) => Process.Start("https://github.com/red-gezi/GenshinImpact_AutoFisher");
         private void btn_Wili_Click(object sender, EventArgs e) => Process.Start("https://wiki.biligame.com/ys/%E5%8E%9F%E7%A5%9E%E5%9C%B0%E5%9B%BE%E5%B7%A5%E5%85%B7_%E5%85%A8%E5%9C%B0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%82%B9");
 
-        private void btn_open_Click(object sender, EventArgs e) => Info.isAutoMouseDown = true;
+        private void btn_open_Click(object sender, EventArgs e) => Info.isStart = true;
 
-        private void btn_down_Click(object sender, EventArgs e) => Info.isAutoMouseDown = false;
+        private void btn_down_Click(object sender, EventArgs e) => Info.isStart = false;
     }
 }
