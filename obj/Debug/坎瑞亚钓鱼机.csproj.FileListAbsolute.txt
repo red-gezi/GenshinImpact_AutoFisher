@@ -16,10 +16,6 @@ D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\obj\Debug\�
 D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.csproj.AssemblyReference.cache
 D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.exe
 D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\obj\Debug\坎瑞亚钓鱼机.pdb
-D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\bin\Debug\dll\x86\OpenCvSharpExtern.dll
-D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\bin\Debug\dll\x86\opencv_videoio_ffmpeg452.dll
-D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\bin\Debug\dll\x64\OpenCvSharpExtern.dll
-D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\bin\Debug\dll\x64\opencv_videoio_ffmpeg452_64.dll
 D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\bin\Debug\坎瑞亚钓鱼机.exe.config
 D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\bin\Debug\坎瑞亚钓鱼机.exe
 D:\vs2022-Project\GenshinImpact_AutoFisher\GenshinImpact_AutoFisher\bin\Debug\坎瑞亚钓鱼机.pdb
