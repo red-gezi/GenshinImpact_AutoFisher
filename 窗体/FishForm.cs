@@ -31,6 +31,7 @@ namespace 坎瑞亚钓鱼机
             rangeMax.Value = Config.GetConfig(6);
             cursorMin.Value = Config.GetConfig(7);
             cursorMax.Value = Config.GetConfig(8);
+            RefreshConfig();
             pict_light.Image = new Bitmap(1, 1);
             Info.isInitConfigOver = true;
             clipImage = new Bitmap((int)W.Value, (int)H.Value);
@@ -117,12 +118,14 @@ namespace 坎瑞亚钓鱼机
                     Bitmap bitmap = ((Bitmap)pict_light.Image);
                     bitmap.SetPixel(0, 0, Color.Red);
                     pict_light.Image = bitmap;
+                    InputListenerr.SetMouseDown(true);
                 }
                 else
                 {
                     Bitmap bitmap = ((Bitmap)pict_light.Image);
                     bitmap.SetPixel(0, 0, Color.Gray);
                     pict_light.Image = bitmap;
+                    InputListenerr.SetMouseDown(false);
                 }
                 // Console.WriteLine(Info.isMouseShouldDown+"-" +Info.isLastMouseShouldDown);
                 //if (Info.isMouseShouldDown&&!Info.isLastMouseShouldDown)
@@ -278,23 +281,29 @@ namespace 坎瑞亚钓鱼机
             if (Info.isInitConfigOver)
             {
                 Console.WriteLine("刷新值");
-                Config.SetConfig(0, (int)X.Value);
-                Config.SetConfig(1, (int)Y.Value);
-                Config.SetConfig(2, (int)W.Value);
-                Config.SetConfig(3, (int)H.Value);
-
-                Config.SetConfig(4, (int)colorStep.Value);
-                Config.SetConfig(5, (int)rangeMin.Value);
-                Config.SetConfig(6, (int)rangeMax.Value);
-                Config.SetConfig(7, (int)cursorMin.Value);
-                Config.SetConfig(8, (int)cursorMax.Value);
-                Info.x = Config.GetConfig(0);
-                Info.y = Config.GetConfig(1);
-                Info.w = Config.GetConfig(2);
-                Info.h = Config.GetConfig(3);
+                RefreshConfig();
                 clipImage = new Bitmap(Info.w, Info.h);
             }
         }
+
+        private void RefreshConfig()
+        {
+            Config.SetConfig(0, (int)X.Value);
+            Config.SetConfig(1, (int)Y.Value);
+            Config.SetConfig(2, (int)W.Value);
+            Config.SetConfig(3, (int)H.Value);
+
+            Config.SetConfig(4, (int)colorStep.Value);
+            Config.SetConfig(5, (int)rangeMin.Value);
+            Config.SetConfig(6, (int)rangeMax.Value);
+            Config.SetConfig(7, (int)cursorMin.Value);
+            Config.SetConfig(8, (int)cursorMax.Value);
+            Info.x = Config.GetConfig(0);
+            Info.y = Config.GetConfig(1);
+            Info.w = Config.GetConfig(2);
+            Info.h = Config.GetConfig(3);
+        }
+
         private void btn_Pause_Click(object sender, EventArgs e) => Info.isPause = !Info.isPause;
         private void btn_github_Click(object sender, EventArgs e) => Process.Start("https://github.com/red-gezi/GenshinImpact_AutoFisher");
         private void btn_Wili_Click(object sender, EventArgs e) => Process.Start("https://wiki.biligame.com/ys/%E5%8E%9F%E7%A5%9E%E5%9C%B0%E5%9B%BE%E5%B7%A5%E5%85%B7_%E5%85%A8%E5%9C%B0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%82%B9");

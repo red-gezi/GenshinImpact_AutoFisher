@@ -8,6 +8,6 @@ class Timer
     public static void Init() => startTime = DateTime.Now;
     public static void Show(string text)
     {
-        Console.WriteLine(text + (DateTime.Now - startTime));
+        //Console.WriteLine(text + (DateTime.Now - startTime));
     }
 }
