@@ -2,6 +2,4 @@
 举例
 若原本："X:\Genshin Impact\launcher.exe"
 则改为："X:\Genshin Impact\launcher.exe" -popupwindow
-2:启动程序
-3:选择标签
-4:进入游戏，
+2:启动程序，按p开启检测，进入钓鱼状态出现钓鱼槽后 再按p进行截屏用于校准
