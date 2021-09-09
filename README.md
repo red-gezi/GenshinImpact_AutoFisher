@@ -1,5 +1,5 @@
 # 坎瑞亚钓鱼机（GenshinImpact_AutoFisher）
-+Tag： 原神 自动钓鱼 auto fish
++ 原神|自动钓鱼|auto|fish
 ## 自动收杆
 ## [下载地址（点我）（还没做好，施工中）](https://github.com/red-gezi/GenshinImpact_AutoFisher/releases)
 # 产品介绍
