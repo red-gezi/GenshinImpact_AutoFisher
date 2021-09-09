@@ -709,4 +709,3 @@
         private System.Windows.Forms.PictureBox pict_light;
     }
 }
-

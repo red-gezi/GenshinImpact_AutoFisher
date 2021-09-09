@@ -36,7 +36,7 @@ namespace 坎瑞亚钓鱼机
         public static int height = 1080;
         public static bool isInitConfigOver = false;
         public static bool isPause = true;
-        public static bool isStart = true;
+        public static bool isStart = false;
         //public static bool isAutoMouseDown = false;
     }
 }

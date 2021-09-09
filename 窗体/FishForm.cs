@@ -40,6 +40,7 @@ namespace 坎瑞亚钓鱼机
             ////控制地图校准系数
             GetKeyBoardInput();
             _ = AnalysicsAsync();
+            _ = SimulationMouseAsync();
         }
 
         private static void GetKeyBoardInput()
@@ -58,7 +59,7 @@ namespace 坎瑞亚钓鱼机
                         Console.WriteLine("打开");
                         Info.isStart = true;
                     }
-                    
+
                 }
                 if (key == "P")
                 {
@@ -112,36 +113,31 @@ namespace 坎瑞亚钓鱼机
                     DrawCursorImage();
                     Timer.Show("提取光标位置");
                 }
-               
-                if (Info.isMouseShouldDown)
+                await Task.Delay(10);
+            }
+        }
+        private async Task SimulationMouseAsync()
+        {
+            while (true)
+            {
+                if (Info.isStart)
                 {
-                    Bitmap bitmap = ((Bitmap)pict_light.Image);
-                    bitmap.SetPixel(0, 0, Color.Red);
-                    pict_light.Image = bitmap;
-                    InputListenerr.SetMouseDown(true);
+                    if (Info.isMouseShouldDown&&!Info.isPause)
+                    {
+                        Bitmap bitmap = ((Bitmap)pict_light.Image);
+                        bitmap.SetPixel(0, 0, Color.Red);
+                        pict_light.Image = bitmap;
+                        InputListenerr.SetMouseDown(true);
+                    }
+                    else
+                    {
+                        Bitmap bitmap = ((Bitmap)pict_light.Image);
+                        bitmap.SetPixel(0, 0, Color.Gray);
+                        pict_light.Image = bitmap;
+                        InputListenerr.SetMouseDown(false);
+                    }
                 }
-                else
-                {
-                    Bitmap bitmap = ((Bitmap)pict_light.Image);
-                    bitmap.SetPixel(0, 0, Color.Gray);
-                    pict_light.Image = bitmap;
-                    InputListenerr.SetMouseDown(false);
-                }
-                // Console.WriteLine(Info.isMouseShouldDown+"-" +Info.isLastMouseShouldDown);
-                //if (Info.isMouseShouldDown&&!Info.isLastMouseShouldDown)
-                //{
-                //    InputListenerr.SetMouseDown(true);
-                //}
-                //if (!Info.isMouseShouldDown && Info.isLastMouseShouldDown)
-                //{
-                //    InputListenerr.SetMouseDown(false);
-                //}
-                ////Info.isLastMouseShouldDown = Info.isMouseShouldDown;
-                //if (Info.isMouseShouldDown&&!Info.isPause)
-                //{
-                //    InputListenerr.SetMouseDown(true);
-                //}
-                await Task.Delay(1);
+                await Task.Delay(10);
             }
         }
         //从游戏中裁剪相应范围的图
@@ -307,9 +303,7 @@ namespace 坎瑞亚钓鱼机
         private void btn_Pause_Click(object sender, EventArgs e) => Info.isPause = !Info.isPause;
         private void btn_github_Click(object sender, EventArgs e) => Process.Start("https://github.com/red-gezi/GenshinImpact_AutoFisher");
         private void btn_Wili_Click(object sender, EventArgs e) => Process.Start("https://wiki.biligame.com/ys/%E5%8E%9F%E7%A5%9E%E5%9C%B0%E5%9B%BE%E5%B7%A5%E5%85%B7_%E5%85%A8%E5%9C%B0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%82%B9");
-
         private void btn_open_Click(object sender, EventArgs e) => Info.isStart = true;
-
         private void btn_down_Click(object sender, EventArgs e) => Info.isStart = false;
     }
 }

@@ -1,13 +1,16 @@
 ﻿using System;
-/// <summary>
-/// 各模块运行时间打印计时类
-/// </summary>
-class Timer
+namespace 坎瑞亚钓鱼机
 {
-    static DateTime startTime;
-    public static void Init() => startTime = DateTime.Now;
-    public static void Show(string text)
+    /// <summary>
+    /// 各模块运行时间打印计时类
+    /// </summary>
+    class Timer
     {
-        //Console.WriteLine(text + (DateTime.Now - startTime));
+        static DateTime startTime;
+        public static void Init() => startTime = DateTime.Now;
+        public static void Show(string text)
+        {
+            Console.WriteLine(text + (DateTime.Now - startTime));
+        }
     }
 }
